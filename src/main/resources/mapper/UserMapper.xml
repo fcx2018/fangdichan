@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bz.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.bz.bean.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="nicheng" property="nicheng" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="session_key" property="session_key" jdbcType="VARCHAR" />
+    <result column="shoujihao" property="shoujihao" jdbcType="VARCHAR" />
+    <result column="touxiang" property="touxiang" jdbcType="VARCHAR" />
+    <result column="xingming" property="xingming" jdbcType="VARCHAR" />
+    <result column="yixiangleixing" property="yixiangleixing" jdbcType="VARCHAR" />
+    <result column="yixiangquyuid" property="yixiangquyuid" jdbcType="INTEGER" />
+    <result column="yixiangquyu" property="yixiangquyu" jdbcType="VARCHAR" />
+    <result column="tuijianrenid" property="tuijianrenid" jdbcType="INTEGER" />
+    <result column="tuijianrenopenid" property="tuijianrenopenid" jdbcType="VARCHAR" />
+    <result column="tixianjine" property="tixianjine" jdbcType="DOUBLE" />
+    <result column="dongjiejine" property="dongjiejine" jdbcType="DOUBLE" />
+    <result column="iszhifubao" property="iszhifubao" jdbcType="INTEGER" />
+    <result column="zhifubaozhaohao" property="zhifubaozhaohao" jdbcType="VARCHAR" />
+    <result column="isweixin" property="isweixin" jdbcType="INTEGER" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="isyihang" property="isyihang" jdbcType="INTEGER" />
+    <result column="yinhanid" property="yinhanid" jdbcType="INTEGER" />
+    <result column="yinhanming" property="yinhanming" jdbcType="VARCHAR" />
+    <result column="zhihang" property="zhihang" jdbcType="VARCHAR" />
+    <result column="zhanghao" property="zhanghao" jdbcType="VARCHAR" />
+    <result column="zhanghaoming" property="zhanghaoming" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <collection property="tuijianren" column="tuijianrenid" select="selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, nicheng, openid, session_key, shoujihao, touxiang, xingming, yixiangleixing, yixiangquyuid,
+    yixiangquyu, tuijianrenid, tuijianrenopenid, tixianjine, dongjiejine, iszhifubao, 
+    zhifubaozhaohao, isweixin, weixin, isyihang, yinhanid, yinhanming, zhihang, zhanghao, 
+    zhanghaoming, `date`
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bz.bean.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0" >
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bz.bean.User" >
+    insert into user (id, nicheng, openid, session_key,
+      shoujihao, touxiang, xingming, 
+      yixiangleixing, yixiangquyuid, yixiangquyu, 
+      tuijianrenid, tuijianrenopenid, tixianjine, 
+      dongjiejine, iszhifubao, zhifubaozhaohao, 
+      isweixin, weixin, isyihang, 
+      yinhanid, yinhanming, zhihang, 
+      zhanghao, zhanghaoming, `date`
+      )
+    values (#{id,jdbcType=INTEGER}, #{nicheng,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR},#{session_key,jdbcType=VARCHAR},
+      #{shoujihao,jdbcType=VARCHAR}, #{touxiang,jdbcType=VARCHAR}, #{xingming,jdbcType=VARCHAR}, 
+      #{yixiangleixing,jdbcType=VARCHAR}, #{yixiangquyuid,jdbcType=INTEGER}, #{yixiangquyu,jdbcType=VARCHAR},
+      #{tuijianrenid,jdbcType=INTEGER}, #{tuijianrenopenid,jdbcType=VARCHAR}, #{tixianjine,jdbcType=DOUBLE},
+      #{dongjiejine,jdbcType=DOUBLE}, #{iszhifubao,jdbcType=INTEGER}, #{zhifubaozhaohao,jdbcType=VARCHAR}, 
+      #{isweixin,jdbcType=INTEGER}, #{weixin,jdbcType=VARCHAR}, #{isyihang,jdbcType=INTEGER}, 
+      #{yinhanid,jdbcType=INTEGER}, #{yinhanming,jdbcType=VARCHAR}, #{zhihang,jdbcType=VARCHAR}, 
+      #{zhanghao,jdbcType=VARCHAR}, #{zhanghaoming,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bz.bean.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="nicheng != null" >
+        nicheng,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="session_key != null" >
+        session_key,
+      </if>
+      <if test="shoujihao != null" >
+        shoujihao,
+      </if>
+      <if test="touxiang != null" >
+        touxiang,
+      </if>
+      <if test="xingming != null" >
+        xingming,
+      </if>
+      <if test="yixiangleixing != null" >
+        yixiangleixing,
+      </if>
+      <if test="yixiangquyuid != null" >
+        yixiangquyuid,
+      </if>
+      <if test="yixiangquyu != null" >
+        yixiangquyu,
+      </if>
+      <if test="tuijianrenid != null" >
+        tuijianrenid,
+      </if>
+      <if test="tuijianrenopenid != null" >
+        tuijianrenopenid,
+      </if>
+      <if test="tixianjine != null" >
+        tixianjine,
+      </if>
+      <if test="dongjiejine != null" >
+        dongjiejine,
+      </if>
+      <if test="iszhifubao != null" >
+        iszhifubao,
+      </if>
+      <if test="zhifubaozhaohao != null" >
+        zhifubaozhaohao,
+      </if>
+      <if test="isweixin != null" >
+        isweixin,
+      </if>
+      <if test="weixin != null" >
+        weixin,
+      </if>
+      <if test="isyihang != null" >
+        isyihang,
+      </if>
+      <if test="yinhanid != null" >
+        yinhanid,
+      </if>
+      <if test="yinhanming != null" >
+        yinhanming,
+      </if>
+      <if test="zhihang != null" >
+        zhihang,
+      </if>
+      <if test="zhanghao != null" >
+        zhanghao,
+      </if>
+      <if test="zhanghaoming != null" >
+        zhanghaoming,
+      </if>
+      <if test="date != null" >
+        `date`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nicheng != null" >
+        #{nicheng,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="session_key != null" >
+        #{session_key,jdbcType=VARCHAR},
+      </if>
+      <if test="shoujihao != null" >
+        #{shoujihao,jdbcType=VARCHAR},
+      </if>
+      <if test="touxiang != null" >
+        #{touxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="xingming != null" >
+        #{xingming,jdbcType=VARCHAR},
+      </if>
+      <if test="yixiangleixing != null" >
+        #{yixiangleixing,jdbcType=VARCHAR},
+      </if>
+      <if test="yixiangquyuid != null" >
+        #{yixiangquyuid,jdbcType=INTEGER},
+      </if>
+      <if test="yixiangquyu != null" >
+        #{yixiangquyu,jdbcType=VARCHAR},
+      </if>
+      <if test="tuijianrenid != null" >
+        #{tuijianrenid,jdbcType=INTEGER},
+      </if>
+      <if test="tuijianrenopenid != null" >
+        #{tuijianrenopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="tixianjine != null" >
+        #{tixianjine,jdbcType=DOUBLE},
+      </if>
+      <if test="dongjiejine != null" >
+        #{dongjiejine,jdbcType=DOUBLE},
+      </if>
+      <if test="iszhifubao != null" >
+        #{iszhifubao,jdbcType=INTEGER},
+      </if>
+      <if test="zhifubaozhaohao != null" >
+        #{zhifubaozhaohao,jdbcType=VARCHAR},
+      </if>
+      <if test="isweixin != null" >
+        #{isweixin,jdbcType=INTEGER},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="isyihang != null" >
+        #{isyihang,jdbcType=INTEGER},
+      </if>
+      <if test="yinhanid != null" >
+        #{yinhanid,jdbcType=INTEGER},
+      </if>
+      <if test="yinhanming != null" >
+        #{yinhanming,jdbcType=VARCHAR},
+      </if>
+      <if test="zhihang != null" >
+        #{zhihang,jdbcType=VARCHAR},
+      </if>
+      <if test="zhanghao != null" >
+        #{zhanghao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhanghaoming != null" >
+        #{zhanghaoming,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bz.bean.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bz.bean.User" >
+    update user
+    <set >
+      <if test="nicheng != null" >
+        nicheng = #{nicheng,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="session_key != null" >
+        session_key = #{session_key,jdbcType=VARCHAR},
+      </if>
+      <if test="shoujihao != null" >
+        shoujihao = #{shoujihao,jdbcType=VARCHAR},
+      </if>
+      <if test="touxiang != null" >
+        touxiang = #{touxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="xingming != null" >
+        xingming = #{xingming,jdbcType=VARCHAR},
+      </if>
+      <if test="yixiangleixing != null" >
+        yixiangleixing = #{yixiangleixing,jdbcType=VARCHAR},
+      </if>
+      <if test="yixiangquyuid != null" >
+        yixiangquyuid = #{yixiangquyuid,jdbcType=INTEGER},
+      </if>
+      <if test="yixiangquyu != null" >
+        yixiangquyu = #{yixiangquyu,jdbcType=VARCHAR},
+      </if>
+      <if test="tuijianrenid != null" >
+        tuijianrenid = #{tuijianrenid,jdbcType=INTEGER},
+      </if>
+      <if test="tuijianrenopenid != null" >
+        tuijianrenopenid = #{tuijianrenopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="tixianjine != null" >
+        tixianjine = #{tixianjine,jdbcType=DOUBLE},
+      </if>
+      <if test="dongjiejine != null" >
+        dongjiejine = #{dongjiejine,jdbcType=DOUBLE},
+      </if>
+      <if test="iszhifubao != null" >
+        iszhifubao = #{iszhifubao,jdbcType=INTEGER},
+      </if>
+      <if test="zhifubaozhaohao != null" >
+        zhifubaozhaohao = #{zhifubaozhaohao,jdbcType=VARCHAR},
+      </if>
+      <if test="isweixin != null" >
+        isweixin = #{isweixin,jdbcType=INTEGER},
+      </if>
+      <if test="weixin != null" >
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="isyihang != null" >
+        isyihang = #{isyihang,jdbcType=INTEGER},
+      </if>
+      <if test="yinhanid != null" >
+        yinhanid = #{yinhanid,jdbcType=INTEGER},
+      </if>
+      <if test="yinhanming != null" >
+        yinhanming = #{yinhanming,jdbcType=VARCHAR},
+      </if>
+      <if test="zhihang != null" >
+        zhihang = #{zhihang,jdbcType=VARCHAR},
+      </if>
+      <if test="zhanghao != null" >
+        zhanghao = #{zhanghao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhanghaoming != null" >
+        zhanghaoming = #{zhanghaoming,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        `date` = #{date,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bz.bean.User" >
+    update user
+    set nicheng = #{nicheng,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      session_key = #{session_key,jdbcType=VARCHAR},
+      shoujihao = #{shoujihao,jdbcType=VARCHAR},
+      touxiang = #{touxiang,jdbcType=VARCHAR},
+      xingming = #{xingming,jdbcType=VARCHAR},
+      yixiangleixing = #{yixiangleixing,jdbcType=VARCHAR},
+      yixiangquyuid = #{yixiangquyuid,jdbcType=INTEGER},
+      yixiangquyu = #{yixiangquyu,jdbcType=VARCHAR},
+      tuijianrenid = #{tuijianrenid,jdbcType=INTEGER},
+      tuijianrenopenid = #{tuijianrenopenid,jdbcType=VARCHAR},
+      tixianjine = #{tixianjine,jdbcType=DOUBLE},
+      dongjiejine = #{dongjiejine,jdbcType=DOUBLE},
+      iszhifubao = #{iszhifubao,jdbcType=INTEGER},
+      zhifubaozhaohao = #{zhifubaozhaohao,jdbcType=VARCHAR},
+      isweixin = #{isweixin,jdbcType=INTEGER},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      isyihang = #{isyihang,jdbcType=INTEGER},
+      yinhanid = #{yinhanid,jdbcType=INTEGER},
+      yinhanming = #{yinhanming,jdbcType=VARCHAR},
+      zhihang = #{zhihang,jdbcType=VARCHAR},
+      zhanghao = #{zhanghao,jdbcType=VARCHAR},
+      zhanghaoming = #{zhanghaoming,jdbcType=VARCHAR},
+      `date` = #{date,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

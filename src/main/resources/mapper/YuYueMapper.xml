@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bz.mapper.YuYueMapper" >
+  <resultMap id="BaseResultMap" type="com.bz.bean.YuYue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="loupanid" property="loupanid" jdbcType="INTEGER" />
+    <result column="loupanming" property="loupanming" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="shoujihao" property="shoujihao" jdbcType="VARCHAR" />
+    <result column="zhuangtai" property="zhuangtai" jdbcType="INTEGER" />
+    <result column="daofangdan" property="daofangdan" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="shijian" property="shijian" jdbcType="TIMESTAMP" />
+    <result column="daofangshijian" property="daofangshijian" jdbcType="TIMESTAMP" />
+    <result column="daofangshenheshijian" property="daofangshenheshijian" jdbcType="TIMESTAMP" />
+    <result column="daofangshenheid" property="daofangshenheid" jdbcType="INTEGER" />
+    <result column="changjiaoshijian" property="changjiaoshijian" jdbcType="TIMESTAMP" />
+    <result column="chengjiaoshenheshijian" property="chengjiaoshenheshijian" jdbcType="TIMESTAMP" />
+    <result column="chengjiaoshenheid" property="chengjiaoshenheid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, loupanid, loupanming, userid, username, shoujihao, zhuangtai, daofangdan, `date`, 
+    shijian, daofangshijian, daofangshenheshijian, daofangshenheid, changjiaoshijian, 
+    chengjiaoshenheshijian, chengjiaoshenheid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bz.bean.YuYueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from yuyue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0" >
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yuyue
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yuyue
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bz.bean.YuYue" >
+    insert into yuyue (id, loupanid, loupanming, 
+      userid, username, shoujihao, 
+      zhuangtai, daofangdan, `date`, 
+      shijian, daofangshijian, daofangshenheshijian, 
+      daofangshenheid, changjiaoshijian, chengjiaoshenheshijian, 
+      chengjiaoshenheid)
+    values (#{id,jdbcType=INTEGER}, #{loupanid,jdbcType=INTEGER}, #{loupanming,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{shoujihao,jdbcType=VARCHAR}, 
+      #{zhuangtai,jdbcType=INTEGER}, #{daofangdan,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{shijian,jdbcType=TIMESTAMP}, #{daofangshijian,jdbcType=TIMESTAMP}, #{daofangshenheshijian,jdbcType=TIMESTAMP}, 
+      #{daofangshenheid,jdbcType=INTEGER}, #{changjiaoshijian,jdbcType=TIMESTAMP}, #{chengjiaoshenheshijian,jdbcType=TIMESTAMP}, 
+      #{chengjiaoshenheid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bz.bean.YuYue" >
+    insert into yuyue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loupanid != null" >
+        loupanid,
+      </if>
+      <if test="loupanming != null" >
+        loupanming,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="shoujihao != null" >
+        shoujihao,
+      </if>
+      <if test="zhuangtai != null" >
+        zhuangtai,
+      </if>
+      <if test="daofangdan != null" >
+        daofangdan,
+      </if>
+      <if test="date != null" >
+        `date`,
+      </if>
+      <if test="shijian != null" >
+        shijian,
+      </if>
+      <if test="daofangshijian != null" >
+        daofangshijian,
+      </if>
+      <if test="daofangshenheshijian != null" >
+        daofangshenheshijian,
+      </if>
+      <if test="daofangshenheid != null" >
+        daofangshenheid,
+      </if>
+      <if test="changjiaoshijian != null" >
+        changjiaoshijian,
+      </if>
+      <if test="chengjiaoshenheshijian != null" >
+        chengjiaoshenheshijian,
+      </if>
+      <if test="chengjiaoshenheid != null" >
+        chengjiaoshenheid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loupanid != null" >
+        #{loupanid,jdbcType=INTEGER},
+      </if>
+      <if test="loupanming != null" >
+        #{loupanming,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="shoujihao != null" >
+        #{shoujihao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuangtai != null" >
+        #{zhuangtai,jdbcType=INTEGER},
+      </if>
+      <if test="daofangdan != null" >
+        #{daofangdan,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shijian != null" >
+        #{shijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="daofangshijian != null" >
+        #{daofangshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="daofangshenheshijian != null" >
+        #{daofangshenheshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="daofangshenheid != null" >
+        #{daofangshenheid,jdbcType=INTEGER},
+      </if>
+      <if test="changjiaoshijian != null" >
+        #{changjiaoshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chengjiaoshenheshijian != null" >
+        #{chengjiaoshenheshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chengjiaoshenheid != null" >
+        #{chengjiaoshenheid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bz.bean.YuYueExample" resultType="java.lang.Integer" >
+    select count(*) from yuyue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bz.bean.YuYue" >
+    update yuyue
+    <set >
+      <if test="loupanid != null" >
+        loupanid = #{loupanid,jdbcType=INTEGER},
+      </if>
+      <if test="loupanming != null" >
+        loupanming = #{loupanming,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="shoujihao != null" >
+        shoujihao = #{shoujihao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuangtai != null" >
+        zhuangtai = #{zhuangtai,jdbcType=INTEGER},
+      </if>
+      <if test="daofangdan != null" >
+        daofangdan = #{daofangdan,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        `date` = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shijian != null" >
+        shijian = #{shijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="daofangshijian != null" >
+        daofangshijian = #{daofangshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="daofangshenheshijian != null" >
+        daofangshenheshijian = #{daofangshenheshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="daofangshenheid != null" >
+        daofangshenheid = #{daofangshenheid,jdbcType=INTEGER},
+      </if>
+      <if test="changjiaoshijian != null" >
+        changjiaoshijian = #{changjiaoshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chengjiaoshenheshijian != null" >
+        chengjiaoshenheshijian = #{chengjiaoshenheshijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chengjiaoshenheid != null" >
+        chengjiaoshenheid = #{chengjiaoshenheid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bz.bean.YuYue" >
+    update yuyue
+    set loupanid = #{loupanid,jdbcType=INTEGER},
+      loupanming = #{loupanming,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      shoujihao = #{shoujihao,jdbcType=VARCHAR},
+      zhuangtai = #{zhuangtai,jdbcType=INTEGER},
+      daofangdan = #{daofangdan,jdbcType=VARCHAR},
+      `date` = #{date,jdbcType=TIMESTAMP},
+      shijian = #{shijian,jdbcType=TIMESTAMP},
+      daofangshijian = #{daofangshijian,jdbcType=TIMESTAMP},
+      daofangshenheshijian = #{daofangshenheshijian,jdbcType=TIMESTAMP},
+      daofangshenheid = #{daofangshenheid,jdbcType=INTEGER},
+      changjiaoshijian = #{changjiaoshijian,jdbcType=TIMESTAMP},
+      chengjiaoshenheshijian = #{chengjiaoshenheshijian,jdbcType=TIMESTAMP},
+      chengjiaoshenheid = #{chengjiaoshenheid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
